@@ -4,6 +4,12 @@ import { client } from "../lib/sanity";
 import { Image } from "next-sanity/image";
 import { ChevronRight } from "lucide-react";
 
+type CategoryPageProps = {
+  params: {
+    category: string;
+  };
+};
+
 async function getData(category: string) {
   const query = `*[_type == "product" && category->name == "${category}"] {
             _id,
@@ -21,9 +27,7 @@ async function getData(category: string) {
 
 export default async function CategoryPage({
   params,
-}: {
-  params: { category: string }
-}) {
+}: CategoryPageProps) {
   const data: simplifiedProduct[] = await getData(params.category);
 
   return (
