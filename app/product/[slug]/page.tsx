@@ -28,9 +28,11 @@ export const dynamic = "force-dynamic";
 export default async function ProductPge({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>;
 }) {
-  const data: fullProduct = await getData(params.slug);
+  // Await the params since it's now a Promise in Next.js 15
+  const resolvedParams = await params;
+  const data: fullProduct = await getData(resolvedParams.slug);
 
   return (
     <div className="bg-white">
