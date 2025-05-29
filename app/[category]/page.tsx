@@ -4,7 +4,7 @@ import { client } from "../lib/sanity";
 import { Image } from "next-sanity/image";
 import { ChevronRight } from "lucide-react";
 
-type CategoryPageProps = {
+type Props = {
   params: {
     category: string;
   };
@@ -27,7 +27,7 @@ async function getData(category: string) {
 
 export default async function CategoryPage({
   params,
-}: CategoryPageProps) {
+}: Props) {
   const data: simplifiedProduct[] = await getData(params.category);
 
   return (
