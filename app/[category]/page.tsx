@@ -26,18 +26,21 @@ async function getData(category: string) {
 export default async function CategoryPage({
   params,
 }: {
-  params: Category }) {  // Using Next.js PageProps
-  const data: simplifiedProduct[] = await getData(params.category);
+  params: Promise<Category>;
+}) {
+  // Await the params since it's now a Promise in Next.js 15
+  const resolvedParams = await params;
+  const data: simplifiedProduct[] = await getData(resolvedParams.category);
 
   return (
     <div className="bg-white">
       <div className="mx-auto flex text-gray-500 md:px-32 lg:px-80 sm:px-16 mb-8">
-        Category <ChevronRight /> {params.category}
+        Category <ChevronRight /> {resolvedParams.category}
       </div>
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Our Products for {params.category}
+            Our Products for {resolvedParams.category}
           </h2>
         </div>
 
